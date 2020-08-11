@@ -1,3 +1,4 @@
+// 2 Closest Points in 2D Plane (N log^2 N)
 struct Point
 {
 	int x, y;

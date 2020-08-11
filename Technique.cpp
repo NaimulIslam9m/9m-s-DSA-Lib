@@ -1,3 +1,4 @@
+// Technique
 /**
     1 based indexing এর cycle এ
     ith position থেকে m position পরের index => next(i, m)

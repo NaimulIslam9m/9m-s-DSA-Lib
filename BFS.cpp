@@ -1,3 +1,4 @@
+//BFS
 //Distance stores levels, and ways stores the number of ways to get from kth vertex to any other vertex with the shortest path taken
 
 int vis[N], dist[N], ways[N];

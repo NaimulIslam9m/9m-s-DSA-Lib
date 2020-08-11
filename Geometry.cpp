@@ -1,3 +1,4 @@
+// Geometry
 struct point
 {
 	int x, y, idx;

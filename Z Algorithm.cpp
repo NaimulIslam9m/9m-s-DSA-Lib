@@ -1,3 +1,4 @@
+// Z Algorithm
 //Logic = https://cp-algorithms.com/string/z-function.html
 
 //The Z-function for this string is an array of length n where the i-th element is equal to the greatest number 
