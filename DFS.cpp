@@ -6,7 +6,6 @@ void dfs(int s)
     {
         if(visited[it] == false)
         {
-            visited[it] = true;
             dfs(it);
         }
     }
