@@ -13,8 +13,8 @@ vector<bool> isPrime(Maxx, true);
 vector<int> primes;
 
 void markMultiplesAsNonPrime(int i) {
-    for (int j = i * i; j < Maxx; j += i) { // Maxx -> joto porjonto prime chai toto
-        isPrime[j] = 1;
+    for (int j = i*i; j < Maxx; j += i) { // Maxx -> joto porjonto prime chai toto
+        isPrime[j] = 0;
     }
 }
 
