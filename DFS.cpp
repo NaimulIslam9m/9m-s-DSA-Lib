@@ -42,3 +42,6 @@ bool dfs(int x,int y,int dest_x,int dest_y)
 
     return false;
 }
+
+//problem_1 (finding specific size path in 2d string maze): https://codeforces.com/problemset/problem/377/A
+//solution_1: https://codeforces.com/contest/377/submission/89995748
