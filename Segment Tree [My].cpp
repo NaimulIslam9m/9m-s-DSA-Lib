@@ -1,3 +1,4 @@
+// segment tree
 /*
     all 1 based indexed
     all means ALL :/
