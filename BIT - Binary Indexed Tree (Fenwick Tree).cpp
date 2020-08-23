@@ -7,8 +7,8 @@
 using namespace std;
 
 #define     LSB(n) ((n) & -(n))
-const    int Maxx = 32001; // number of leaf noads (array elements)
-int64_t Bit[Maxx];
+const    int MAX = 32001; // number of leaf noads (array elements)
+int64_t Bit[MAX];
 
 int64_t pref(int idx) {
     int64_t sum = 0;
@@ -19,9 +19,9 @@ int64_t pref(int idx) {
     return sum;
 }
 
-void update(int idx, int val) {
-    while(idx <= Maxx) {
-        Bit[idx] += val;
+void update(int idx, int delta) {
+    while(idx <= MAX) {
+        Bit[idx] += delta;
         idx += LSB(idx);
     }
 }
