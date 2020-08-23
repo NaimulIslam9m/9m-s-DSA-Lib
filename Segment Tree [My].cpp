@@ -15,11 +15,9 @@ int query(int node, int beg, int end, int i, int j) {
         return T[node];
     if(end < i || beg > j)
         return 0;
-    int L = node<<1;
-    int R = L+1;
-    int mid = beg + ((end - beg)>>1);
-    int p = query(L, beg, mid, i, j);
-    int q = query(R, mid+1, end, i, j);
+    int mid = (beg + end) / 2;
+    int p = query(2*node, beg, mid, i, j);
+    int q = query(2*node + 1, mid + 1, end, i, j);
     return p+q;
 }
 
@@ -30,10 +28,8 @@ void update(int node, int beg, int end, int i, int val) {
     }
     if(end < i || beg > i)
         return;
-    int L = node<<1;
-    int R = L+1;
-    int mid = beg + ((end - beg)>>1);
-    update(L, beg, mid, i, val);
-    update(R, mid+1, end, i, val);
-    T[node] = T[L] + T[R];
+    int mid = (beg + end) / 2;
+    update(2*node, beg, mid, i, val);
+    update(2*node + 1, mid+1, end, i, val);
+    T[node] = T[2*node] + T[2*node + 1];
 }
