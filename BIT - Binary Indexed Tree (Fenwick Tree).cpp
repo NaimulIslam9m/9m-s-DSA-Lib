@@ -2,12 +2,11 @@
     BIT update "just can ADD value" to the specific index.
     All here is 1 based indexed
 */
-
 #include<bits/stdc++.h>
 using namespace std;
 
-#define     LSB(n) ((n) & -(n))
-const    int MAX = 32001; // number of leaf noads (array elements)
+#define LSB(n) ((n) & -(n))
+const int MAX = 32001; // number of leaf noads (array elements)
 int64_t Bit[MAX];
 
 int64_t pref(int idx) {
@@ -39,7 +38,7 @@ int main()
     for(int i=1; i<=n; i++) //taking input
     {
         cin >> x;
-        update(i,x); // x এর জাইগায় যেই value নিব সেটা দিতে হবে।
+        update(i, x); // x এর জাইগায় যেই value নিব সেটা দিতে হবে।
     }
 
     //updating
@@ -47,6 +46,7 @@ int main()
         cin >> idx >> x;
         update(idx, -x);
         update(idx, x);
+        // or add the difference
     }
 
     return 0;

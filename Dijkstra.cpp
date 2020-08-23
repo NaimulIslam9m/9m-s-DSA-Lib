@@ -1,9 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define sz 100000
-#define inf 1<<27
-vector<int> grp[sz], weight[sz];
-int cost[sz];
+
+const int MAX = 100000;
+const int INF = 1<<27;
+
+vector<int> grp[MAX], weight[MAX];
+int cost[MAX];
 
 void dijkstra(int src)
 {
@@ -42,7 +44,7 @@ int main()
         weight[u].emplace_back(w);
         weight[v].emplace_back(w);
     }
-    fill(cost, cost+node, inf);
+    fill(cost, cost+node, INF);
     int src, dest;
     cin >> src >> dest;
     dijkstra(src);
