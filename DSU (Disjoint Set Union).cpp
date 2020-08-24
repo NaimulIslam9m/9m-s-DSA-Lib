@@ -11,13 +11,11 @@ struct DSU
 		connected = n;
 	}
 
+	// always need to use "getPar" to get parent of some node
+	// becasue par[] might not have main parent
 	int getPar(int u)
 	{
-		while (par[u] != u)
-		{
-			par[u] = par[par[u]];
-			u = par[u];
-		}
+		while (par[u] != u) u = par[u] = par[par[u]];
 		return u;
 	}
 
