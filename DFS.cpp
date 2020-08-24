@@ -12,17 +12,17 @@ void dfs(int s)
 }
 
 
-// find distance of all nodes from a node 
-void dfs(int s, int level)
+// find shortest path from source to all node
+void dfs(int s, int level = 0)
 {
-    visited[s] = 1;
-    dist[s] = level;
+    vis[s] = 1;
+    dist[s] = min(dist[s], level);
     for(auto it : graph[s])
     {
-        if(visited[it]==0)
+        if(vis[it] == 0 || (vis[it] == 1 && dist[it] > level + 1))
         {
-            dfs(it, level+1);
-        }
+            dfs(it, level + 1);
+        }    
     }
 }
 
