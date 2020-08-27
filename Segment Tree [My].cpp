@@ -61,7 +61,7 @@ int main() {
     start = 1LL << int(ceil(log2(n)));
     for (int i = 0; i < n; ++i) cin >> TT[start + i];
     build();
-    modify(0, 1);
-    cout << query(3, 11)) << '\n';
+    modify(pos-1, val);
+    cout << query(l-1, r) << '\n';
     return 0;
 }
