@@ -33,49 +33,35 @@ int ncr(int n, int r)
     claculate upto N = 10^8
     useing precalculation
 */
-int fact[N], invfact[N];
+vector<int64_t> fact(MAX), ifact(MAX);
+const int MOD = 1e9 + 7;
 
-int pow(int a, int b, int m)
-{
-	int ans=1;
-	while(b)
-	{
-		if(b&1) ans = (ans*a)%m;
-		a=(a*a)%m;
-		b /= 2;
-	}
-	return ans;
+int64_t pow_n(int64_t a, int p, const int mod = MOD) {
+    int64_t ans = 1;
+    a %= mod;
+    while(p) {
+        if(p & 1) ans = ans * a % mod;
+        a = a * a % mod;
+        p >>= 1;
+    }
+    return ans;
 }
 
-int modinv(int k)
-{
-	return pow(k, MOD-2, MOD);
+int64_t inv(int b) {
+    return pow_n(b, MOD - 2);
 }
 
-void precompute()
-{
-	fact[0]=fact[1]=1;
-	for(int i=2;i<N;i++)
-	{
-		fact[i]=fact[i-1]*i;
-		fact[i]%=MOD;
-	}
-	invfact[N-1]=modinv(fact[N-1]);
-	for(int i=N-2;i>=0;i--)
-	{
-		invfact[i]=invfact[i+1]*(i+1);
-		invfact[i]%=MOD;
-	}
+void precal() {
+    fact[0] = fact[1] = 1;
+    for (int i = 2; i < MAX; i++)
+        fact[i] = fact[i - 1] * i % MOD;
+    
+    ifact[MAX - 1] = inv(fact[MAX - 1]);
+    for (int i = MAX - 2; ~i; i--) 
+        ifact[i] = ifact[i + 1] * (i + 1) % MOD;
 }
 
-int nCr(int x, int y)
-{
-	if(y>x)
-		return 0;
-	int num=fact[x];
-	num*=invfact[y];
-	num%=MOD;
-	num*=invfact[x-y];
-	num%=MOD;
-	return num;
+int ncr(int n, int r) {
+    if (r > n) return 0;
+    return mul(mul(fact[n], ifact[r]), ifact[n - r]);
 }
