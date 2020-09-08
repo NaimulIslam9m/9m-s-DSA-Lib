@@ -63,5 +63,5 @@ void precal() {
 
 int ncr(int n, int r) {
     if (r > n) return 0;
-    return mul(mul(fact[n], ifact[r]), ifact[n - r]);
+    return fact[n] * ifact[r] % MOD * ifact[n - r] % MOD;
 }
