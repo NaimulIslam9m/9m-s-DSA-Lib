@@ -11,8 +11,8 @@ int64_t powmod_n(int64_t a, int p, const int mod = MOD)
     return ans;
 }
 
-
-// for avoiding overflow in big modular multiplication
+// multiply two numbers a and b
+// and avoiding overflow in big modular multiplication
 ll mulMod(ll a, ll b, ll Mod)
 {
     ll res = 0;     // res must be 0
