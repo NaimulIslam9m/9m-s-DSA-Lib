@@ -17,6 +17,8 @@ void dijkstra(int src)
         int x = Q.top().second;
         int y = Q.top().first;
         Q.pop();
+        if (cost[x] < y) continue;
+        
         for(int i = 0; i < grp[x].size(); i++)
         {
             int to = grp[x][i];
