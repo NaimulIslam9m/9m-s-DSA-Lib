@@ -9,9 +9,7 @@ int cost[MAX];
 
 void dijkstra(int src)
 {
-    priority_queue<pair<int, int>,
-                   vector<pair<int, int>>,
-                   greater<pair<int, int>>> Q;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> Q;
     Q.push({0,src}); // [cost, node]
     cost[src] = 0;
     while(!Q.empty())
@@ -21,10 +19,11 @@ void dijkstra(int src)
         Q.pop();
         for(int i = 0; i < grp[x].size(); i++)
         {
-            if(cost[grp[x][i]] > cost[x] + weight[x][i])
+            int to = grp[x][i];
+            if(cost[to] > cost[x] + weight[x][i])
             {
-                cost[grp[x][i]] = cost[x] + weight[x][i];
-                Q.push({cost[grp[x][i]], grp[x][i]});
+                cost[to] = cost[x] + weight[x][i];
+                Q.push({cost[to], to});
             }
         }
     }
