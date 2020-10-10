@@ -20,8 +20,9 @@ void markMultiplesAsNonPrime(int i) {
 
 void getPrimes() {
     primes.emplace_back(0);   //to make 1based indexed
+    isPrime[0] = isPrime[1] = 0;
     int sqrtMaxx = int(sqrt(Maxx));
-
+    
     for (int i = 2; i <= sqrtMaxx; i++) {
         if (isPrime[i]) {
             primes.eb(i);   // stores prime from 2 to sqrtMaxx

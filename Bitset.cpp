@@ -13,7 +13,7 @@ void functions()
 	bit.reset(); //resets all bits to 0
 	bit.reset(1); //resets 1st bit
 	bit.set(); //sets all bits to 1
-	bit.set(1); //sets 1st bit to 1
+	bit.set(n); //sets nth bit to 1
 	bit.size(); //return size of bitset
 	bit.test(1); //check if 1st bit is on or not
 	cout << bit.to_string(); //converts to string
