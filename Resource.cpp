@@ -20,10 +20,3 @@ Note :  There is a problem with erase() function in ordered_multiset (for less_e
         i) find_by_order(k) : kth smallest element counting from 0 .
         ii) order_of_key(k) : number of elements strictly smaller than k.
 */
-
-
-/*
-        this is only for c++ 17 :)
-*/
-template<typename... Args> void read(Args&... args) { ((cin >> args), ...); }
-template<typename... Args> void write(Args... args) { ((cout << args << " "), ...); }
