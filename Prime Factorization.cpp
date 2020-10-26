@@ -75,15 +75,14 @@ void sieveSPF() {
         SPF[i] = i;
 
     int sqrtMAX = int(sqrt(MAX));
-    for (i = 2; i <= sqrtMAX; i++) {
-        if (SPF[i] == i) {
+    for (i = 2; i <= sqrtMAX; i++) 
+        if (SPF[i] == i) 
             for (j = i * i; j <= MAX; j += i)
                 if (SPF[j] == j) 
                     SPF[j] = i;
-        }
-    }
 }
 
+// not necessary
 // printing prime factors of x
 void primeFactors(int x) {
     vector<int> pf;
@@ -97,6 +96,7 @@ void primeFactors(int x) {
     cout << '\n';
 }
 
+// not necessary
 void precalc() {
     sieveSPF();
     int i;
