@@ -35,28 +35,6 @@ void getPrimes() {
     }
 }
 
-/**-----------------------------------------------------------------------------------------------------------------------
- * *                                                     INFO
- * * Counting DISTINCT PRIME FACTORS for every number
- * factor == divisor
- *-----------------------------------------------------------------------------------------------------------------------**/
-
-vector<int> primeFactor(MAX);
-
-void incrementAllMultiples(int i) {
-    for (int j = i; j < MAX; j += i) {
-        primeFactor[j]++;
-    }
-}
-
-void getDistinctPrimeFactors() {
-    for (int i = 2; i < MAX; i++) {
-        if (primeFactor[i] == 0) {
-            incrementAllMultiples(i);
-        }
-    }
-}
-
 /*==================================================== END OF SIEVE OF ERATOSTHENES ====================================================*/
 
 
@@ -108,7 +86,6 @@ vector<bool> segmentedSieve(int L, int R) {
     getPrimes(sqrtR);
     return getMarkedPrimesBetweenLR(L, R);
 }
-
 
 /*==================================================== END OF SEGMENTED SIEVE ====================================================*/
 

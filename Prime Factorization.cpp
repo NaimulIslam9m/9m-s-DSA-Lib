@@ -1,24 +1,26 @@
-// Prime Factorization
-/**
+#include <local.h>
+/**-----------------------------------------------------------------------------------------------------------------------
+ * *                                                     INFO
+ * Prime factor of a number
  * Complexity: O(sqrt(n))
- */
-vector<int> primeFactors;
+ *-----------------------------------------------------------------------------------------------------------------------**/
+
+vector<int> PF;
 
 void primeFactors(int n) {
     int i;
     while (n % 2 == 0) {
-        primeFactors.emplace_back(2);
+        PF.emplace_back(2);
         n /= 2;
     }
     for (i = 3; i * i <= n; i += 2) { // careful about overflow of i*i
         while (n % i == 0) {
-            primeFactors.emplace_back(i);
+            PF.emplace_back(i);
             n /= i;
         }
     }
-    if (n > 2) {
-        primeFactors.emplace_back(n);
-    }
+    if (n > 2) 
+        PF.emplace_back(n);
 }
 
 /// using the concept of "prime factors comes in pairs"
@@ -27,34 +29,57 @@ void primeFactors(int n) {
     int sqrt_n = floor(sqrt(n));
     for (i = 2; i < sqrt_n; i++) {
         if (n % i == 0) {
-            primeFactors.emplace_back(i);
-            primeFactors.emplace_back(n / i);
+            PF.emplace_back(i);
+            PF.emplace_back(n / i);
         }
     }
-    if (n % sqrt_n == 0) primeFactors.emplace_back(sqrt_n);
+    if (n % sqrt_n == 0) 
+        PF.emplace_back(sqrt_n);
+}
+
+/**-----------------------------------------------------------------------------------------------------------------------
+ * *                                                     INFO
+ * * Counting DISTINCT PRIME FACTORS for every number
+ * factor == divisor
+ *-----------------------------------------------------------------------------------------------------------------------**/
+
+vector<int> primeFactor(MAX);
+
+void incrementAllMultiples(int i) {
+    for (int j = i; j < MAX; j += i) 
+        primeFactor[j]++;
+}
+
+void getDistinctPrimeFactors() {
+    for (int i = 2; i < MAX; i++) 
+        if (primeFactor[i] == 0) 
+            incrementAllMultiples(i);
 }
 
 
-/*********************************[USING SIEVE]**************************************/
-/**
-    for multiple queries
-    O(n Log(Log(n))) for sieve
-    O(Log(n)) printing prime factor
-*/
 
-const int Maxx = 1e6 + 10;
+/**-----------------------------------------------------------------------------------------------------------------------
+ * *                                                     INFO
+ * *  for multiple queries
+ *  O(n Log(Log(n))) for sieve
+ *  O(Log(n)) printing prime factor
+ *-----------------------------------------------------------------------------------------------------------------------**/
 
-int smallestPrimeFactor[Maxx], primeFactor[Maxx], prefSum[Maxx];
+const int MAX = 1e6 + 10;
+
+int SPF[MAX], PF[MAX], prefSum[MAX];
 
 void sieveSPF() {
     int i, j;
-    for (i = 1; i <= Maxx; i++) smallestPrimeFactor[i] = i;
+    for (i = 1; i <= MAX; i++) 
+        SPF[i] = i;
 
-    int sqrtMaxx = ceil(sqrt(Maxx));
-    for (i = 2; i <= sqrtMaxx; i++) {
-        if (smallestPrimeFactor[i] == i) {
-            for (j = i * i; j <= Maxx; j += i)
-                if (smallestPrimeFactor[j] == j) smallestPrimeFactor[j] = i;
+    int sqrtMAX = int(sqrt(MAX));
+    for (i = 2; i <= sqrtMAX; i++) {
+        if (SPF[i] == i) {
+            for (j = i * i; j <= MAX; j += i)
+                if (SPF[j] == j) 
+                    SPF[j] = i;
         }
     }
 }
@@ -63,27 +88,25 @@ void sieveSPF() {
 void primeFactors(int x) {
     vector<int> pf;
     while (x != 1) {
-        primeFactor.emplace_back(smallestPrimeFactor[x]);
-        x /= smallestPrimeFactor[x];
+        pf.emplace_back(SPF[x]);
+        x /= SPF[x];
     }
-    print(primeFactor);
+
+    for (auto it : pf)
+        cout << it << ' ';
+    cout << '\n';
 }
 
-// calculating number of prime factors of x
 void precalc() {
     sieveSPF();
     int i;
 
-    primeFactor[0] = primeFactor[1] = 0;
-    for (i = 2; i < Maxx; i++)
-        primeFactor[i] = primeFactor[i / smallestPrimeFactor[i]] + 1;
+    // calculating number of prime factors of x
+    PF[0] = PF[1] = 0;
+    for (i = 2; i < MAX; i++)
+        PF[i] = PF[i / SPF[i]] + 1;
 
     // whien we need to calculate number of prime factors of n!
-    for (i = 1; i < Maxx; i++)
-        prefSum[i] = prefSum[i - 1] + primeFactor[i];
+    for (i = 1; i < MAX; i++)
+        prefSum[i] = prefSum[i - 1] + PF[i];
 }
-
-
-
-
-
