@@ -1,5 +1,6 @@
+#include <local.h>
 /*
-    calcuate upto MAX = 10^4
+  *  calcuate upto MAX = 10^4
     using precalculation
 */
 int C[MAX][MAX];
@@ -9,20 +10,20 @@ void precal()
     for (int i = 1; i < MAX; i++) {
         for (int j = 0; j <= i; j++) {
             if (j == 0 || i == j) C[i][j] = 1;
-            else C[i][j] = C[i-1][j-1] + C[i-1][j];
+            else C[i][j] = C[i - 1][j - 1] + C[i - 1][j];
         }
     }
 }
 
 /*
-    calcuate upto n = 10^18
+  *  calcuate upto n = 10^18
 */
 int ncr(int n, int r)
 {
     int ans = 1;
-    r = min(r, n-r);
+    r = min(r, n - r);
     for (int i = 0; i < r; i++) {
-        ans = ans*(n-i)/(i+1);
+        ans = ans * (n - i) / (i + 1);
     }
     return ans;
 }
@@ -30,11 +31,10 @@ int ncr(int n, int r)
 
 /*
     calculating nCr using factorial
-    claculate upto N = 10^8
+ *   claculate upto N = 10^8
     useing precalculation
 */
 vector<int64_t> fact(MAX), ifact(MAX);
-const int MOD = 1e9 + 7;
 
 int64_t pow_n(int64_t a, int p, const int mod = MOD) {
     int64_t ans = 1;
@@ -61,7 +61,12 @@ void precal() {
         ifact[i] = ifact[i + 1] * (i + 1) % MOD;
 }
 
-int ncr(int n, int r) {
+int64_t ncr(int n, int r) {
     if (r > n) return 0;
     return fact[n] * ifact[r] % MOD * ifact[n - r] % MOD;
+}
+
+int npr(int n, int r) {
+    if (r > n) return 0;
+    return fact[n] * ifact[n - r] % MOD;
 }
