@@ -8,7 +8,7 @@
 vector<int> PF;
 
 void primeFactors(int n) {
-    int i;
+    int i;1
     while (n % 2 == 0) {
         PF.emplace_back(2);
         n /= 2;
