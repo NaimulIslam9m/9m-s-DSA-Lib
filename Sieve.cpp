@@ -12,7 +12,7 @@
  * * this code can generate 5761461 primes (  5 * 10^6 টা প্রাইম! :o )
  *-----------------------------------------------------------------------------------------------------------------------**/
 
-const int MAX = 1e5;
+const int MAX = 1e8;
 vector<bool> isPrime(MAX, true);
 vector<int> primes;
 
