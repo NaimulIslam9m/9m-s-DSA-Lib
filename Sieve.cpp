@@ -10,28 +10,33 @@
  * * Complexity: O( n Log(Log(n)) )
  *
  * * this code can generate 5761461 primes (  5 * 10^6 টা প্রাইম! :o )
+ * * primality test upto MAX
  *-----------------------------------------------------------------------------------------------------------------------**/
 
 const int MAX = 1e8;
 vector<bool> isPrime(MAX, true);
 vector<int> primes;
 
-void markMultiplesAsNonPrime(int i) {
-    for (int j = i * i; j < MAX; j += i) { // MAX -> যত পর্যন্ত প্রাইম চাই ততো
+void markNonPrimes(int i) {
+    for (int j = i * i; j < MAX; j += i)  // MAX -> যত পর্যন্ত প্রাইম চাই ততো
         isPrime[j] = 0;
-    }
 }
 
-void getPrimes() {
-    primes.emplace_back(0);   // to make 1based indexed
+void getPrimes(bool getList = 0) {
+    if (getList) 
+        primes.emplace_back(0);   // to make 1based indexed
     isPrime[0] = isPrime[1] = 0;
-    int sqrtMAX = int(sqrt(MAX));
+    int sqrtMAX = round(sqrt(MAX));
     
-    for (int i = 2; i <= sqrtMAX; i++) {
-        if (isPrime[i]) {
-            primes.emplace_back(i);   // stores prime from 2 to sqrtMAX
-            markMultiplesAsNonPrime(i);
-        }
+    for (int i = 2; i <= sqrtMAX; i++) 
+        if (isPrime[i]) 
+            markNonPrimes(i);
+
+    if (getList) {
+        primes.emplace_back(2);
+        for (int i = 3; i < MAX; i += 2) // list has primes upto MAX
+            if (isPrime[i])
+                primes.emplace_back(i);
     }
 }
 
@@ -66,6 +71,7 @@ vector<bool> getMarkedPrimesBetweenLR(int L, int R) {
         }
     }
     if (L == 1) isPrime[0] = false;
+    return isPrime;
 }
 
 void getPrimes(int sqrtR) {
@@ -96,30 +102,23 @@ vector<bool> segmentedSieve(int L, int R) {
  *                                                     MEMORY EFFICIENT SIEVE
  *=======================================================================================================================**/
 
-#define getbit(n, i) (((n) & (1LL << i)) != 0)
-#define setbit1(n, i) ((n) | (1LL << i))
-
-bool flag[(MAX + 31) / 32];
+// const int MAX = 200;
 vector<int> primes;
+bitset<MAX> status; 
 
-void sieve() {
-    for (int i = 4; i <= MAX; i += 2)
-        setbit1(flag[i / 32], i % 32);  // i/32 == i>>5 AND i%32 == i&31
+void sieve()
+{
+    int sqrtMAX = round(sqrt(MAX));
 
-    primes.emplace_back(0); // to make 1based indexed
+    for (int i = 3; i <= sqrtMAX; i += 2) 
+        if (status.test(i) == 0) 
+            for (int j = i * i, k = 2 * i; j <= MAX; j += k)
+                status.set(j);
+
     primes.emplace_back(2);
-
-    int sqrtMAX = int(sqrt(MAX));
-    for (i = 3; i <= sqrtMAX; i += 2)
-        if (getbit(flag[i / 32], i % 32) == 0)
-            for (j = i * i; j <= MAX; j += i + i)
-                setbit1(flag[j / 32], j % 32);
-
-    for (i = 3; i <= MAX; i += 2) {
-        if (getbit(flag[i / 32], i % 32) == 0) {
+    for (int i = 3; i < MAX; i += 2)
+        if (status.test(i) == 0)
             primes.emplace_back(i);
-        }
-    }
 }
 
 /*==================================================== END OF MEMORY EFFICIENT SIEVE ====================================================*/

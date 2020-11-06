@@ -1,26 +1,33 @@
-int xgcd(int a, int b, int &x, int &y) /// input এ a & b এর absolute value নিতে হবে
+#include <local.h>
+
+//! input এ a & b এর absolute value নিতে হবে
+/**
+ * * characteristics of solutions:
+ * 
+ * |x| + |y| is minimal
+ * x <= y
+ */
+int egcd(int a, int b, int &x, int &y) 
 {
-	if(a == 0)
-	{
-		x = 0;
-		y = 1;
-		return b;
+	if (b == 0) {
+		x = 1;
+		y = 0;
+		return a;
 	}
 	int x1, y1;
-	int g = xgcd(b % a, a, x1, y1);
-	x = y1 - (b / a) * x1;
-	y = x1;
+	int g = egcd(b, a % b, x1, y1);
+	x = y1;
+	y = x1 - y1 * (a / b);
 	return g;
 }
  
 int modular_inverse(int a, int m)
 {
 	int x, y;
-	int g = xgcd(a, m, x, y);
+	int g = egcd(a, m, x, y);
 	if(g != 1)
 		return -1;
-	else
-	{
+	else {
 		x = (x % m + m) % m;
 		return x;
 	}
@@ -34,7 +41,7 @@ void shift_solution(int &x, int &y, int a, int b, int cnt)
  
 bool find_any_solution(int a, int b, int c, int &x0, int &y0, int &g)
 {
-	g = xgcd(abs(a), abs(b), x0, y0);
+	g = egcd(abs(a), abs(b), x0, y0);
 	if(c % g != 0)
 		return false;
 	x0 *= c/g;

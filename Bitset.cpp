@@ -1,4 +1,4 @@
-// Bitset
+#include <local.h>
 const int SZ = 2001;
 
 void functions()

@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <local.h>
 using ll = int64_t;
 const int MAX = 2e5;
 const int MOD = 1e9 + 7;

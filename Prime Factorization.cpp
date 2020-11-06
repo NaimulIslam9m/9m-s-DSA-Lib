@@ -5,42 +5,63 @@
  * Complexity: O(sqrt(n))
  *-----------------------------------------------------------------------------------------------------------------------**/
 
-vector<int> PF;
+namespace factorBasic {
 
-void primeFactors(int n) {
-    int i;1
-    while (n % 2 == 0) {
-        PF.emplace_back(2);
-        n /= 2;
+    // {prime factor, power}
+    template <class T> 
+    vector<pair<T, int>> getFactors(T n) {
+        vector<pair<T, int>> pf;
+        /**
+         * For faster execution, precalculate primes using sieve
+         * For getting prime factors of n 
+         * you just need upto the next prime after sqrt(n)
+         * !careful about overflow p*p <= n
+         */
+        
+        for (T i = 2; i * i <= n; i++)
+            if (n % i == 0) {
+                int c = 0;
+                while (n % i == 0) 
+                    n /= i, c++;
+                pf.emplace_back(i, c);
+            }
+        if (n > 1) 
+            pf.emplace_back(n, 1);
+        
+        return pf;
     }
-    for (i = 3; i * i <= n; i += 2) { // careful about overflow of i*i
-        while (n % i == 0) {
-            PF.emplace_back(i);
-            n /= i;
-        }
-    }
-    if (n > 2) 
-        PF.emplace_back(n);
-}
 
-/// using the concept of "prime factors comes in pairs"
-void primeFactors(int n) {
-    int i;
-    int sqrt_n = floor(sqrt(n));
-    for (i = 2; i < sqrt_n; i++) {
-        if (n % i == 0) {
-            PF.emplace_back(i);
-            PF.emplace_back(n / i);
+    /**
+     * for finding NOD fast
+     * first precalculate primes using sieve
+     * then count prime factors
+     * and use formula (e1 + 1)(e2 + 1)...
+     */
+    template <class T>
+    vector<T> getDivisors(T n) {
+        vector<T> div;
+
+        T i = 1;
+        while (i * i < n) {
+            if (n % i == 0) {
+                div.emplace_back(i),
+                div.emplace_back(n / i);
+            }
+            i++;
         }
+        if (i * i == n)
+            div.emplace_back(i);
+
+        sort(all(div));
+        return div;
     }
-    if (n % sqrt_n == 0) 
-        PF.emplace_back(sqrt_n);
 }
+using namespace factorBasic;
 
 /**-----------------------------------------------------------------------------------------------------------------------
  * *                                                     INFO
  * * Counting DISTINCT PRIME FACTORS for every number
- * factor == divisor
+ * MAX <= 1e8
  *-----------------------------------------------------------------------------------------------------------------------**/
 
 vector<int> primeFactor(MAX);
@@ -63,6 +84,7 @@ void getDistinctPrimeFactors() {
  * *  for multiple queries
  *  O(n Log(Log(n))) for sieve
  *  O(Log(n)) printing prime factor
+ * MAX <= 1e8
  *-----------------------------------------------------------------------------------------------------------------------**/
 
 const int MAX = 1e6 + 10;
