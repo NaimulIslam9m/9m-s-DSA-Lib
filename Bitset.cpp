@@ -4,6 +4,7 @@ const int SZ = 2001;
 void functions()
 {
 	bitset<SZ> bit;
+	bit[i];
 	bit.all(); //checks whether all bits are set or not
 	bit.any(); //checks whether >= 1 bit is on
 	bit.none(); //checks if all bits are off

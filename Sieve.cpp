@@ -46,6 +46,58 @@ void getPrimes(bool getList = 0) {
 
 
 /**=======================================================================================================================
+ *                                                     Linear Sieve
+ *=======================================================================================================================**/
+
+/**-----------------------------------------------------------------------------------------------------------------------
+ * *                                                   INFO
+ * * Main: Get prime list
+ * * By-product: smallest prime factor of all numbers 
+ * * Complexity O(n)
+ * * Tip: spf[i] == i means i is prime [except 0] ;)
+ *-----------------------------------------------------------------------------------------------------------------------**/
+
+const int MAX = 1e8 + 2;
+int spf[MAX];
+vector<int> primes;
+
+void fastSieve() {
+    for (int i = 2; i < MAX; i++) {
+        if (spf[i] == 0) {
+            spf[i] = i;
+            primes.emplace_back(i);
+        }
+        for (int j = 0; j < (int)primes.size() && primes[j] <= spf[i] && i * primes[j] < MAX; j++)
+            spf[i * primes[j]] = primes[j];
+    }
+}
+
+
+//** memory efficient implementation **//
+bitset<MAX> isPrime;
+vector<int> primes;
+
+void fastSieve() {
+    isPrime.set();
+    for (int i = 2; i < MAX; i++) {
+        if (isPrime[i]) 
+            primes.emplace_back(i);
+        for (int j = 0; j < (int)primes.size() && i * primes[j] < MAX; j++) {
+            isPrime[primes[j] * i] = 0;
+            if (i % primes[j] == 0)
+                break;
+        }
+    }
+}
+
+/*==================================================== END OF Linear Sieve ====================================================*/
+
+
+
+
+
+
+/**=======================================================================================================================
  *                                                     SEGMENTED SIEVE
  *=======================================================================================================================**/
 
@@ -102,22 +154,26 @@ vector<bool> segmentedSieve(int L, int R) {
  *                                                     MEMORY EFFICIENT SIEVE
  *=======================================================================================================================**/
 
-// const int MAX = 200;
+const int MAX = 1e7 + 1;
 vector<int> primes;
-bitset<MAX> status; 
+bitset<MAX> isPrime; 
 
 void sieve()
 {
+    isPrime.set();
     int sqrtMAX = round(sqrt(MAX));
 
+    for (int i = 4; i < MAX; i += 2)
+        isPrime[i] = 0;
+
     for (int i = 3; i <= sqrtMAX; i += 2) 
-        if (status.test(i) == 0) 
-            for (int j = i * i, k = 2 * i; j <= MAX; j += k)
-                status.set(j);
+        if (isPrime[i]) 
+            for (int j = i * i, k = 2 * i; j < MAX; j += k)
+                isPrime[j] = 0;
 
     primes.emplace_back(2);
     for (int i = 3; i < MAX; i += 2)
-        if (status.test(i) == 0)
+        if (isPrime[i])
             primes.emplace_back(i);
 }
 

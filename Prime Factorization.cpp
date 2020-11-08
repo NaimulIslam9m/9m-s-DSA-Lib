@@ -9,7 +9,7 @@ namespace factorBasic {
 
     // {prime factor, power}
     template <class T> 
-    vector<pair<T, int>> getFactors(T n) {
+    auto getFactors(T n) {
         vector<pair<T, int>> pf;
         /**
          * For faster execution, precalculate primes using sieve
@@ -18,7 +18,7 @@ namespace factorBasic {
          * !careful about overflow p*p <= n
          */
         
-        for (T i = 2; i * i <= n; i++)
+        for (T i = 2; 1ll * i * i <= n; i++)
             if (n % i == 0) {
                 int c = 0;
                 while (n % i == 0) 
@@ -42,7 +42,7 @@ namespace factorBasic {
         vector<T> div;
 
         T i = 1;
-        while (i * i < n) {
+        while (1ll * i * i < n) {
             if (n % i == 0) {
                 div.emplace_back(i),
                 div.emplace_back(n / i);
@@ -96,26 +96,12 @@ void sieveSPF() {
     for (i = 1; i <= MAX; i++) 
         SPF[i] = i;
 
-    int sqrtMAX = int(sqrt(MAX));
+    int sqrtMAX = round(sqrt(MAX));
     for (i = 2; i <= sqrtMAX; i++) 
         if (SPF[i] == i) 
             for (j = i * i; j <= MAX; j += i)
                 if (SPF[j] == j) 
                     SPF[j] = i;
-}
-
-// not necessary
-// printing prime factors of x
-void primeFactors(int x) {
-    vector<int> pf;
-    while (x != 1) {
-        pf.emplace_back(SPF[x]);
-        x /= SPF[x];
-    }
-
-    for (auto it : pf)
-        cout << it << ' ';
-    cout << '\n';
 }
 
 // not necessary
