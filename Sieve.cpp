@@ -107,16 +107,16 @@ void fastSieve() {
  * Complexity: O((R-L+1)Log Log(R)+ √R Log Log(√R))
  *-----------------------------------------------------------------------------------------------------------------------**/
 
-vector<int> primes;
+vector<ll> primes;
 
-int ceil(int nom, int denom) {
+ll ceil(ll nom, ll denom) {
     return (nom + denom - 1) / denom;
 }
 
 vector<bool> getMarkedPrimesBetweenLR(int L, int R) {
     vector<bool> isPrime(R - L + 1, true);
     for (auto prime : primes) {
-        int i = max((prime * prime), ceil(L, prime) * prime);
+        ll i = max((prime * prime), ceil(L, prime) * prime);
         while (i <= R) {
             isPrime[i - L] = false;
             i += prime;
@@ -140,8 +140,10 @@ void getPrimes(int sqrtR) {
 }
 
 vector<bool> segmentedSieve(int L, int R) {
-    int sqrtR = int(sqrt(R));
-    getPrimes(sqrtR);
+    int sqrtR = round(sqrt(R));
+    // for multiple test case put this line at start
+    // and pass the sqrt of maximum possible value of R
+    getPrimes(sqrtR); 
     return getMarkedPrimesBetweenLR(L, R);
 }
 

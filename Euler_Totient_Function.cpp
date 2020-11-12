@@ -19,13 +19,13 @@ T Phi(T n)
 
     for (int i = 3; ll(i) * i <= n; i += 2) {
         if (n % i == 0) {
-            while (n % i == 0) 
+            while (n % i == 0)
                 n /= i;
             ans -= ans / i;
         }
     }
 
-    if(n > 1) 
+    if(n > 1)
         ans -= ans / n;
 
     return ans;
@@ -40,25 +40,23 @@ T Phi(T n)
 /**-----------------------------------------------------------------------------------------------------------------------
  * *                                                     INFO
  * * Main: get Phi values upto MAX
- * * By-product: prime checker
+ * * By-product(can be created): prime checker
  *  O(n)
  *-----------------------------------------------------------------------------------------------------------------------**/
 const int MAX = 5e6 + 100;
 int phi[MAX];
 bitset<MAX> vis;
-vec<unsigned long long> pref(MAX);
 
 void sievePHI() {
-    for (int i = 1; i < MAX; i++) 
+    for (int i = 1; i < MAX; i++)
         phi[i] = i;
 
-    vis[0] = vis[1] = 1; // need for prime check
-
-    for (int i = 2; i < MAX; i++) 
-        if (vis[i] == 0) 
+    for (int i = 2; i < MAX; i++)
+        if (vis[i] == 0)
             for (int j = i; j < MAX; j += i) {
                 vis[j] = 1;
-                phi[j] = (phi[j] / i) * (i - 1);
+                // phi[j] = (phi[j] / i) * (i - 1);
+                phi[j] -= (phi[j] / i); // faster runtime, as avoiding multiplication
             }
 }
 
@@ -134,4 +132,3 @@ void _case()
     ll a, b; cin >> a >> b;
     segSievePHI(a, b);
 }
-
