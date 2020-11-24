@@ -1,4 +1,3 @@
-// Big Number Operation
 /**
     O(sz(dividend))
     divisor <= 10^18
@@ -60,5 +59,3 @@ string Multiply(string a, string b)
 
     return Ans;
 }
-
-

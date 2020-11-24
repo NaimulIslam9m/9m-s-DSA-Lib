@@ -2,10 +2,17 @@
     "configurations": [
         {
             "name": "Win32",
-            "includePath": [ "${workspaceFolder}/**" ],
-            "defines": [ "_DEBUG", "UNICODE","_UNICODE" ],
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
             "cStandard": "gnu18",
-            "cppStandard": "gnu++17"
+            "cppStandard": "gnu++17",
+            "compilerPath": "C:\\msys64\\mingw64\\bin\\g++.exe"
         }
     ],
     "version": 4
