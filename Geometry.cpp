@@ -1,6 +1,9 @@
 #include <local.h>
 
-//! change long double to long long if necessary
+const long double eps = 1e-9;
+const long double PI = acos(-1);
+inline int sign(long double x) { return (x > eps) - (x < -eps); }
+
 struct Point {
     long double x = 0, y = 0;
     Point() {}
@@ -9,22 +12,22 @@ struct Point {
     void read() { cin >> x >> y; }
 	void show() { cout << x << ' ' << y << '\n'; }
 
-    Point operator- (Point a) { return Point(x - a.x, y - a.y); }
-    Point operator+ (Point a) { return Point(x + a.x, y + a.y); }
-    bool operator== (Point a) { return (x == a.x) && (y == a.y); }
-    bool operator!= (Point a) { return (x != a.x) && (y != a.y); }
-    bool operator< (Point a) {
-        if (x == a.x) return y < a.y;
-        return x < a.x;
-    }
-    bool operator> (Point a) {
-        if (x == a.x) return y > a.y;
-        return x > a.x;
-    }
+    Point operator+ (const Point &a) { return Point(x + a.x, y + a.y); }
+    Point operator- (const Point &a) { return Point(x - a.x, y - a.y); }
+	Point operator* (long double a) { return Point(x * a, y * a); }
+	Point operator/ (long double a) { return Point(x / a, y / a); }
+    bool operator== (Point a) { return sign(x - a.x) == 0 && sign(y - a.y) == 0; }
+    bool operator!= (Point a) { return !(*this == a); }
+    bool operator< (Point a) { return sign(x - a.x) == 0 ? y < a.y : x < a.x; }
+    bool operator> (Point a) { return sign(x - a.x) == 0 ? y > a.y : x > a.x; }
 
-    long double mdist() { return x * x + y * y; } // manhattan distance
+	long double mdist() { return abs(x) + abs(y); } // manhattan distance
+    long double sqdist() { return x * x + y * y; } // square distance
     long double dist() { return sqrt(mdist()); } // euclidean distance
 };
+
+inline long double dot(Point a, Point b) { return a.x * b.x + a.y * b.y; }
+inline long double cross(Point a, Point b) { return a.x * b.y - a.y * b.x; }
 
 
 //*  checks if a shape can be fromed using some point

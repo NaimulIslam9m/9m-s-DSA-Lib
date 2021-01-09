@@ -1,5 +1,6 @@
 #include <local.h>
 
+// ! notice the value N
 vec<vec<int>> multiply(vec<vec<int>> &a, vec<vec<int>> &b) {
     vec<vec<int>> c(N, vec<int>(N, 0));
     rep(i, 0, N)

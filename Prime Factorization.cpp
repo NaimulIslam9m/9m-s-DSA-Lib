@@ -8,26 +8,28 @@
 namespace factorBasic {
 
     // {prime factor, power}
-    template <class T> 
+    template <class T>
     auto getFactors(T n) {
         vector<pair<T, int>> pf;
         /**
          * For faster execution, precalculate primes using sieve
-         * For getting prime factors of n 
+         * For getting prime factors of n
          * you just need upto the next prime after sqrt(n)
          * !careful about overflow p*p <= n
          */
-        
+
         for (T i = 2; 1ll * i * i <= n; i++)
             if (n % i == 0) {
                 int c = 0;
-                while (n % i == 0) 
+                while (n % i == 0)
                     n /= i, c++;
                 pf.emplace_back(i, c);
             }
-        if (n > 1) 
+        // !when calculating SOD, if n is prime then use (n + 1)
+        // !or it will cause overflow
+        if (n > 1)
             pf.emplace_back(n, 1);
-        
+
         return pf;
     }
 
@@ -67,13 +69,13 @@ using namespace factorBasic;
 vector<int> primeFactor(MAX);
 
 void incrementAllMultiples(int i) {
-    for (int j = i; j < MAX; j += i) 
+    for (int j = i; j < MAX; j += i)
         primeFactor[j]++;
 }
 
 void getDistinctPrimeFactors() {
-    for (int i = 2; i < MAX; i++) 
-        if (primeFactor[i] == 0) 
+    for (int i = 2; i < MAX; i++)
+        if (primeFactor[i] == 0)
             incrementAllMultiples(i);
 }
 
@@ -93,14 +95,14 @@ int SPF[MAX], PF[MAX], prefSum[MAX];
 
 void sieveSPF() {
     int i, j;
-    for (i = 1; i <= MAX; i++) 
+    for (i = 1; i <= MAX; i++)
         SPF[i] = i;
 
     int sqrtMAX = round(sqrt(MAX));
-    for (i = 2; i <= sqrtMAX; i++) 
-        if (SPF[i] == i) 
+    for (i = 2; i <= sqrtMAX; i++)
+        if (SPF[i] == i)
             for (j = i * i; j <= MAX; j += i)
-                if (SPF[j] == j) 
+                if (SPF[j] == j)
                     SPF[j] = i;
 }
 

@@ -3,24 +3,25 @@
 struct DSU
 {
 	int connected; // number of components
-	vector<int> par, sz;
+	vector<int> par, Size;
 
 	void init(int n) {
-		par = sz = vector<int> (n + 1, 0);
+		par = Size = vector<int> (n + 1, 0);
 		for (int i = 1; i <= n; i++)
-			par[i] = i, sz[i] = 1;
+			par[i] = i, Size[i] = 1;
 		connected = n;
 	}
 
 	// always need to use "getPar" to get parent of some node
 	// becasue par[] might not have main parent
 	int getPar(int u) {
-		while (par[u] != u) u = par[u] = par[par[u]];
+		while (par[u] != u)
+			u = par[u] = par[par[u]];
 		return u;
 	}
 
 	int getSize(int u) {
-		return sz[getPar(u)];
+		return Size[getPar(u)];
 	}
 
 	void unite(int u, int v) {
@@ -31,11 +32,11 @@ struct DSU
 
 		connected--;
 
-		if (sz[par1] > sz[par2]) 
+		if (Size[par1] > Size[par2])
 			swap(par1, par2);
 
-		sz[par2] += sz[par1];
-		sz[par1] = 0;
+		Size[par2] += Size[par1];
+		Size[par1] = 0;
 		par[par1] = par2;
 	}
 };

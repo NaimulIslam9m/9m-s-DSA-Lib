@@ -10,7 +10,7 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "cStandard": "gnu18",
+            "cStandard": "${default}",
             "cppStandard": "gnu++17",
             "compilerPath": "C:\\msys64\\mingw64\\bin\\g++.exe"
         }

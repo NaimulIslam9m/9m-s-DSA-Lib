@@ -3,7 +3,7 @@
     all 1 based indexed
     all means ALL :/
 */
-// recursive 
+// recursive
 #define MAX 100000
 
 int T[MAX * 4 + 100];
@@ -13,9 +13,9 @@ int query(int node, int beg, int end, int i, int j) {
     if(end < i || beg > j) return 0;
 
     int mid = (beg + end) / 2;
-    int p = query(2*node, beg, mid, i, j);
-    int q = query(2*node + 1, mid + 1, end, i, j);
-    return p+q;
+    int p = query(2 * node, beg, mid, i, j);
+    int q = query(2 * node + 1, mid + 1, end, i, j);
+    return p + q;
 }
 
 void update(int node, int beg, int end, int i, int val) {
@@ -26,9 +26,9 @@ void update(int node, int beg, int end, int i, int val) {
     if(end < i || beg > i) return;
 
     int mid = (beg + end) / 2;
-    update(2*node, beg, mid, i, val);
-    update(2*node + 1, mid+1, end, i, val);
-    T[node] = T[2*node] + T[2*node + 1];
+    update(2 * node, beg, mid, i, val);
+    update(2 * node + 1, mid + 1, end, i, val);
+    T[node] = T[2 * node] + T[2 * node + 1];
 }
 
 

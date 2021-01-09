@@ -3,48 +3,45 @@
     Using Golden Ratio
     finding fibonacci number in O(1)
 */
-int fib(int n) // started from 0
+int fibo(int n) // fibo(0) = 0
 {
-    double phi = (1 + sqrt(5)) / 2;   // golden ration
+    double phi = (1 + sqrt(5)) / 2; // golden ration
     return round(pow(phi, n) / sqrt(5));
 }
-
-
 
 /********************************************[Matrix Multiplication]*****************************************/
 /**
     O(log(p))
 */
 
-void matrixMul(int x[2][2], int y[2][2])
-{
-    int a = x[0][0]*y[0][0] + x[0][1]*y[1][0];
-    int b = x[0][0]*y[0][1] + x[0][1]*y[1][1];
-    int c = x[1][0]*y[0][0] + x[1][1]*y[1][0];
-    int d = x[1][0]*y[0][1] + x[1][1]*y[1][1];
+void matrixMul(int64_t x[2][2], int64_t y[2][2]) {
+    int64_t a = x[0][0] * y[0][0] % MOD + x[0][1] * y[1][0] % MOD;
+    int64_t b = x[0][0] * y[0][1] % MOD + x[0][1] * y[1][1] % MOD;
+    int64_t c = x[1][0] * y[0][0] % MOD + x[1][1] * y[1][0] % MOD;
+    int64_t d = x[1][0] * y[0][1] % MOD + x[1][1] * y[1][1] % MOD;
 
-    x[0][0] = a%Mod, x[0][1] = b%Mod;
-    x[1][0] = c%Mod, x[1][1] = d%Mod;
+    x[0][0] = a % MOD, x[0][1] = b % MOD;
+    x[1][0] = c % MOD, x[1][1] = d % MOD;
 }
 
-int fastExp(int b[2][2], int p)
-{
-    int ans[2][2] = {{1, 0}, {0, 1}}; // identity matrix
+int64_t pow_n(int64_t b[2][2], int64_t p) {
+    int64_t ans[2][2] = {{1, 0}, {0, 1}}; // identity matrix
 
-    while (p) {
-        if (p&1) matrixMul(ans, b);
+    while (p > 0) {
+        if (p & 1)
+            matrixMul(ans, b);
         matrixMul(b, b);
         p >>= 1;
     }
 
-    return ans[0][0]%Mod;
+    return ans[0][0] % MOD;
 }
 
-int fibo(int n)
-{
-    if (n == 0 || n == 1) return n;
+int64_t fibo(int64_t n) {
+    if (n == 0 || n == 1)
+        return n;
 
-    int F[2][2] = {{1, 1}, {1, 0}};
+    int64_t F[2][2] = {{1, 1}, {1, 0}};
 
-    return fastExp(F, n-1);
+    return pow_n(F, n - 1);
 }
